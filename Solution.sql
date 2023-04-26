@@ -39,4 +39,6 @@ SELECT SUM(amount) AS gross_revenue, name FROM payment
         LIMIT 5;
 	
 -- Question 7
-SELECT
+SELECT title, store_id FROM inventory
+	JOIN film ON film.film_id = inventory.film_id
+		WHERE title = "Academy Dinosaur" AND store_id = "1";
