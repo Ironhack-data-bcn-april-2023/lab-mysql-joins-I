@@ -37,20 +37,8 @@ SELECT `name`, SUM(amount) AS Gross_revenue FROM category
     JOIN rental ON rental.inventory_id = inventory.inventory_id
     JOIN payment ON payment.rental_id = rental.rental_id
     GROUP BY `name`
-    ORDER BY SUM(amount)
+    ORDER BY SUM(amount) DESC
     LIMIT 5;
     
 -- Query 7
 -- I'm sorry to inform you that the store had closed too many years ago, the movie "Academy Dinosaur" is not able anymore.
-    
-    
-    
-    
-
-
-
-
-
-
-
-    
