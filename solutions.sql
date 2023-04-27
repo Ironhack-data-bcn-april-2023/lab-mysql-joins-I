@@ -1,15 +1,22 @@
 USE sakila;
 SELECT * FROM store;
 
+-- 01. COLUMNS I NEED
+-- 02. TABLES in chart I NEED
+-- 03. COMMON KEYS
+
 
 
 --  Query #1
 	-- Display for each store its store ID, city, and country.
 SELECT store_id, city, country  
 	FROM store
-		JOIN address ON store.address_id = address.address_id
-		JOIN city ON address.city_id = city.city_id
-		JOIN country ON country.country_id = city.country_id;
+		JOIN address 
+			ON store.address_id = address.address_id
+		JOIN city 
+			ON address.city_id = city.city_id
+		JOIN country 
+			ON country.country_id = city.country_id;
         
 -- Query #2
 	-- Display how much business, in dollars, each store brought in.
@@ -23,11 +30,12 @@ SELECT store.store_id, SUM(payment.amount) AS total_revenue
 -- Query #3
 	-- Average running time of films by category.
     
-SELECT category.category_id, AVG(film.length) AS avg_lenght
+SELECT category.name, AVG(film.length) AS avg_lenght
 	FROM category
 		JOIN film_category ON category.category_id = film_category .category_id
 		JOIN film ON film_category.film_id = film.film_id
-		GROUP BY category.category_id;    
+		GROUP BY category.name
+		ORDER BY avg_lenght ASC;    
 
 -- Query #4
 SELECT * FROM film_category;
@@ -56,16 +64,18 @@ SELECT film.title, COUNT(*) AS rental_count
 SELECT * FROM payment;
 	-- Top five genres in gross revenue in descending order.
 SELECT category.name, SUM(payment.amount) AS revenue
-FROM film
-	JOIN film_category ON film.film_id = film.film_id
-    JOIN category ON film_category.category_id = category.category_id
-    JOIN inventory ON film.film_id = inventory.film_id
-    JOIN rental ON inventory.inventory_id = rental.inventory_id
-    JOIN payment ON rental.rental_id = payment.rental_id-- both share customer_id and staff_id
-GROUP BY category.name
-ORDER BY revenue DESC;
-	
--- i really try it :(
+	FROM film
+		JOIN film_category ON film.film_id = film_category.film_id
+		JOIN category ON film_category.category_id = category.category_id
+		JOIN inventory ON film.film_id = inventory.film_id
+		JOIN rental ON inventory.inventory_id = rental.inventory_id
+		JOIN payment ON rental.rental_id = payment.rental_id-- both share customer_id and staff_id
+	GROUP BY category.name
+	ORDER BY revenue DESC
+    LIMIT 5;
 
 -- Query #7 
 	-- Is "Academy Dinosaur" available for rent from Store 1?
+    
+SELECT rental.return_date, film.
+    
